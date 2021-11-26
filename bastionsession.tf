@@ -8,7 +8,7 @@
 
 resource "oci_bastion_session" "bastion_session" {
   count      = length(var.bastion_session_compute_list)
-  bastion_id = var.bastion_service_id
+  bastion_id = local.bastion_service_id
 
   key_details {
     public_key_content = file(var.ssh_public_key)

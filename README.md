@@ -29,8 +29,9 @@ fingerprint      = "fo:oo:ba:ar:ba:ar"
 private_key_path = "/absolute/path/to/api/key/your_api_key.pem"
 ######################################## COMMON VARIABLES ######################################
 ######################################## ARTIFACT SPECIFIC VARIABLES ######################################
-ssh_public_key     = "./relative/path/to/ssh/key/public_ssh_key.pub"
-bastion_service_id = "ocid1.bastion.oc1.re-region-1.amertgjhsdhs"
+ssh_public_key                            = "./relative/path/to/ssh/key/public_ssh_key.pub"
+bastion_service_name                      = "MY_BASTION_SERVICE_NAME"
+bastion_service_instance_compartment_name = "MY_BASTION_SERVICE_COMPARTMENT"
 
 bastion_session_compute_list = [
   {
@@ -62,8 +63,9 @@ fingerprint      = "fo:oo:ba:ar:ba:ar"
 private_key_path = "/absolute/path/to/api/key/your_api_key.pem"
 ######################################## COMMON VARIABLES ######################################
 ######################################## ARTIFACT SPECIFIC VARIABLES ######################################
-ssh_public_key     = "./relative/path/to/ssh/key/public_ssh_key.pub"
-bastion_service_id = "ocid1.bastion.oc1.re-region-1.amertgjhsdhs"
+ssh_public_key                            = "./relative/path/to/ssh/key/public_ssh_key.pub"
+bastion_service_name                      = "MY_BASTION_SERVICE_NAME"
+bastion_service_instance_compartment_name = "MY_BASTION_SERVICE_COMPARTMENT"
 
 bastion_session_compute_list = [
   {
@@ -86,14 +88,14 @@ bastion_session_compute_list = [
 
 ### Variable specific considerations
 - `bastion_session_compute_list` is a custom list of objects containing all the data needed to provision a session. Each object should contain:
-    - a Display name: `displayname`
-    - an id: `id`
-    - a session type: `type` can be either `MANAGED_SSH` or `PORT_FORWARDING`
-        - If using `MANAGED_SSH` a `username` should be specified. This is the SSH username used to connect to the compute. E.g. it should be `opc` for Oracle Linux instances.
-        - If using `PORT_FORWARDING` a `port` should be specified. This is the port on which to connect to the instance with.
-    - a time to live in seconds: `ttl`
-    - *Note1*: None of these values have any defaults due to the object pattern used and for simplicity. Always specify exactly the variables you need.
-    - *Note2*: Multiple services can obviously be created, and don't have to be of the same type.
+  - a Display name: `displayname`
+  - an id: `id`
+  - a session type: `type` can be either `MANAGED_SSH` or `PORT_FORWARDING`
+    - If using `MANAGED_SSH` a `username` should be specified. This is the SSH username used to connect to the compute. E.g. it should be `opc` for Oracle Linux instances.
+    - If using `PORT_FORWARDING` a `port` should be specified. This is the port on which to connect to the instance with.
+  - a time to live in seconds: `ttl`
+  - *Note1*: None of these values have any defaults due to the object pattern used and for simplicity. Always specify exactly the variables you need.
+  - *Note2*: Multiple services can obviously be created, and don't have to be of the same type.
 
 ### Sample provider
 The following is the base provider definition to be used with this module
@@ -142,12 +144,15 @@ No modules.
 | Name | Type |
 |------|------|
 | [oci_bastion_session.bastion_session](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/bastion_session) | resource |
+| [oci_bastion_bastions.BASTIONSERVICE](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/bastion_bastions) | data source |
+| [oci_identity_compartments.COMPARTMENTS](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/identity_compartments) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bastion_service_id"></a> [bastion\_service\_id](#input\_bastion\_service\_id) | Defines the Bastion Service OCID to attach the session to | `any` | n/a | yes |
+| <a name="input_bastion_service_instance_compartment_name"></a> [bastion\_service\_instance\_compartment\_name](#input\_bastion\_service\_instance\_compartment\_name) | Defines where the Bastion Service has already been provisioned | `any` | n/a | yes |
+| <a name="input_bastion_service_name"></a> [bastion\_service\_name](#input\_bastion\_service\_name) | Defines the Bastion Service name to attach the session to | `any` | n/a | yes |
 | <a name="input_bastion_session_compute_list"></a> [bastion\_session\_compute\_list](#input\_bastion\_session\_compute\_list) | A list of objects that contains the display name, id, type, ttl and either the username or port, depending on which session type is used. | `any` | n/a | yes |
 | <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | API Key Fingerprint for user\_ocid derived from public API Key imported in OCI User config | `any` | n/a | yes |
 | <a name="input_private_key_path"></a> [private\_key\_path](#input\_private\_key\_path) | Private Key Absolute path location where terraform is executed | `any` | n/a | yes |

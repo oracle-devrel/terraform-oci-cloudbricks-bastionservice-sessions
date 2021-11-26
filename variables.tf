@@ -33,8 +33,12 @@ variable "ssh_public_key" {
   description = "Defines SSH Public Key to be used for the Bastion Session"
 }
 
-variable "bastion_service_id" {
-  description = "Defines the Bastion Service OCID to attach the session to"
+variable "bastion_service_name" {
+  description = "Defines the Bastion Service name to attach the session to"
+}
+
+variable "bastion_service_instance_compartment_name" {
+  description = "Defines where the Bastion Service has already been provisioned"
 }
 
 variable "bastion_session_compute_list" {

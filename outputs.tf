@@ -6,5 +6,5 @@
 
 output "bastionsessions" {
   description = "Bastion Session object"
-  value = oci_bastion_session.bastion_session
+  value       = oci_bastion_session.bastion_session
 }
