@@ -8,7 +8,7 @@ The following brick allows for creation of Bastion Sessions that connect to a Ba
 ## Reference Architecture
 The following is the reference architecture associated to this brick
 
-![Reference Architecture](./images/Bricks_Architectures-bastionsession.drawio.png)
+![Reference Architecture](./images/Bricks_Architectures-bastionsession.png)
 
 ### Prerequisites
 - Pre-baked Network and Compartments Artifacts
